@@ -1,0 +1,38 @@
+{
+  "manifest_version": 3,
+  "name": "싸강 완료 알림",
+  "version": "2.2.0",
+  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApe1wVmWx/IKWhHs+EXfVFgGSRPe1aYeDVPvW+T4u+K8hHPp5REzk5Fji8ydyF4NM9hasxTgt6K/PWeX5WzOiUGg92xV+/tFBH747vAB5UrRis9uwVEf3JI++CI8iGb1NPgf/XaTo3qyEPQ9m9Yte7UeeIXe9oOJGyQfPmi+TZGUflwKxdUCBV1iMRkm+RCWM1iP0AoeDalOSMPbgJ87dxN3vpTYhVndCAfRP+F4GlBp+IjUKNy1WRpK6pE6IazAxPir4x7hAlNk24uO5Uk3uktdnyLYx8/0YOr1Aw0oXVdISgqBMPfH1G4873EsU5cbYMnEpnpiZfMEVb4bsDgiPtwIDAQAB",
+  "description": "대구가톨릭대학교 iLOS 온라인 강의의 재생 완료를 감지해 Windows 경고창으로 알려줍니다.",
+  "permissions": [
+    "activeTab",
+    "alarms",
+    "nativeMessaging",
+    "notifications",
+    "scripting",
+    "storage"
+  ],
+  "host_permissions": [
+    "https://lms.cu.ac.kr/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "action": {
+    "default_title": "싸강 완료 알림",
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://lms.cu.ac.kr/*"
+      ],
+      "js": [
+        "logic.js",
+        "content.js"
+      ],
+      "all_frames": true,
+      "run_at": "document_start"
+    }
+  ]
+}

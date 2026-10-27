@@ -1,0 +1,5 @@
+native_host/*.exe
+native_host/*.log
+*.zip
+.DS_Store
+Thumbs.db

@@ -1,0 +1,22 @@
+name: test
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: node tests/logic.test.js
+      - run: node tests/package.test.js
+      - name: Compile Windows native host
+        shell: powershell
+        run: |
+          $compiler = Join-Path $env:WINDIR "Microsoft.NET\Framework64\v4.0.30319\csc.exe"
+          & $compiler /nologo /target:winexe /out:native_host\SgangLectureAlarmHost.exe /reference:System.Web.Extensions.dll native_host\Program.cs
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
